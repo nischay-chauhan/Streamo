@@ -9,13 +9,16 @@ const font = Poppins({
 
 export const Logo = () => {
     return (
-        <div className={cn("flex items-center gap-2")}>
+        <>
+        <div className={cn("flex  items-center gap-y-4")}>
             <Image
                 src="/logo.svg"
                 alt="logo"
                 width={100}
                 height={100}
                 />
-            </div>
+        </div>
+        <h3 className={cn("text-3xl text-white font-bold", font.className)}>Join Today</h3>
+        </>
     )
 }
