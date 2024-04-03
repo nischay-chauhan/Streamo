@@ -1,9 +1,12 @@
+import { Wrapper } from "./wrapper"
+
 export const Sidebar = () => {
+    
     return (
         <>
-        <div className="flex flex-col">
-            sidebar
-        </div>
+       <Wrapper>
+        Sidebar
+       </Wrapper>
         </>
     )
 }
