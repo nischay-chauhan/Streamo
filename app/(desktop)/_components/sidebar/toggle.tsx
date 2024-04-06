@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useSidebar } from "@/store/use-sidebar"
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react"
+import { Hint } from "@/components/hint"
 
 export const Toggle = () => {
     const {collapsed , onExpand , onCollapse} = useSidebar((state) => state)
@@ -12,9 +13,12 @@ export const Toggle = () => {
       {
         collapsed && (
             <div className=" flex w-full items-center justify-center pt-4 mb-4">
+                <Hint label=
+                {label} side="right" asChild>
                 <Button className="h-auto p-2" variant={"ghost"} onClick={onExpand} aria-label={label} title={label}>
                     <ArrowRightFromLine className="h-4 w-4" />
                 </Button>
+                </Hint>
             </div>
         )
       }
@@ -23,11 +27,13 @@ export const Toggle = () => {
             <p className="font-semibold text-primary">
                 Here u Go
             </p>
-            <Button className="h-auto p-2 ml-auto" variant={"ghost"}
+          <Hint label={label} side="right" asChild>
+          <Button className="h-auto p-2 ml-auto" variant={"ghost"}
             onClick={onCollapse}
             >
                 <ArrowLeftFromLine className="h-4 w-4" />
             </Button>
+          </Hint>
         </div>
       )}
       </>
