@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { LiveBadge } from "./live-badge";
+import { Skeleton } from "./ui/skeleton";
 
 interface UserAvatarProps {
     username: string;
@@ -34,5 +35,17 @@ export const UserAvatar = ({
                 )}
             </div>
         </div>
+    );
+};
+
+interface UserAvatarSkeletonProps extends UserAvatarProps {
+    size : number
+}
+
+export const UserAvatarSkeleton = ({
+    size
+}: UserAvatarSkeletonProps) => {
+    return (
+        <Skeleton className={cn("rounded-full", "w-" + size, "h-" + size)} />
     );
 };
