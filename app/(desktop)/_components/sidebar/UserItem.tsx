@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useSidebar } from "@/store/use-sidebar"
 import Link from "next/link"
 import { UserAvatar } from "@/components/user-avatar"
+import { LiveBadge } from "@/components/live-badge"
 
 interface userItemPRops {
     username: string
@@ -29,11 +30,13 @@ export const UserItem = ({ username, imageUrl, isLive }: userItemPRops) => {
       )}
       >
        <Link href={href}>
+       
         <div className={cn("w-full flex items-center gap-x-4" , collapsed && "justify-center")}>
         <UserAvatar
         imageUrl = {imageUrl}
         username = {username}
         isLive = {isLive}
+        showBadge
         />
         </div>
        </Link>

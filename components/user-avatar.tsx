@@ -1,11 +1,10 @@
-import { cva , type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Skeleton } from "./ui/skeleton";
-import { Avatar , AvatarFallback , AvatarImage } from "./ui/avatar";
-import { VariableIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { LiveBadge } from "./live-badge";
+
 interface UserAvatarProps {
-    username : string;
-    imageUrl : string;
+    username: string;
+    imageUrl: string;
     isLive?: boolean;
     showBadge?: boolean;
 }
@@ -15,15 +14,25 @@ export const UserAvatar = ({
     imageUrl,
     isLive,
     showBadge
-} : UserAvatarProps) => {
-    const canShowBadge = isLive && showBadge;
-    return(
-        <div className="relative">
-            <Avatar className={cn(
-                isLive && "ring ring-red-500 ring-offset-1",
-            )}>
-                <AvatarImage src={imageUrl} className="object-cover" alt="User Avatar" />
-            </Avatar>
+}: UserAvatarProps) => {
+    return (
+        <div className="relative ">
+            <div className="relative">
+                <Avatar className={cn(
+                    isLive && "ring ring-red-500 ring-offset-1",
+                )}>
+                    <AvatarImage src={imageUrl} className="object-cover" alt="User Avatar" />
+                    <AvatarFallback>
+                        {username[0].toUpperCase()}
+                        {username[username.length - 1]}
+                    </AvatarFallback>
+                </Avatar>
+                {isLive && showBadge && (
+                    <div className="absolute left-1/2 -bottom-3 transform -translate-x-1/2  transform-translate-x-1/2">
+                        <LiveBadge />
+                    </div>
+                )}
+            </div>
         </div>
-    )
-}
+    );
+};
