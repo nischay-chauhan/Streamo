@@ -1,7 +1,7 @@
 "use client"
 import { useSidebar } from "@/store/use-sidebar"
 import {User} from "@prisma/client"
-import { UserItem } from "./UserItem"
+import { UserItem , UserItemSkeleton } from "./UserItem"
 interface RecommendedProps{
     data : User[]
 }
@@ -32,4 +32,15 @@ export const Recommended = ({data} : RecommendedProps) => {
            </ul>
         </div>
     )
+}
+
+export const RecommendedSkeleton = () => {
+    return(
+        <ul className="space-y-2">
+            {[...Array(3)].map((_ , i) => (
+                <UserItemSkeleton key={i}/>
+            ))}
+        </ul>
+    )
+
 }
