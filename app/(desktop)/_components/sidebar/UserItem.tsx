@@ -24,9 +24,9 @@ export const UserItem = ({ username, imageUrl, isLive }: userItemPRops) => {
       asChild
       variant={isActive ? "primary" : "ghost"}
       className={cn(
-        "w-full justify-start text-left font-normal",
+        "w-full h-full  justify-start text-left font-normal",
         !collapsed && "pl-2",
-        isActive && "bg-accent"
+        isActive && "bg-accent "
       )}
       >
        <Link href={href}>

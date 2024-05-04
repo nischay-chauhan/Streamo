@@ -34,6 +34,9 @@ model Follow {
 
 following User @relation(name: "FollowedBy" , fields: [followingId] , references: [id] , onDelete: Cascade)
 
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+  @@unique([followerId , followingId])
   @@index([followerId])
   @@index([followingId])
 }
