@@ -1,10 +1,17 @@
 "use server"
 
+import { FollowUser } from "@/lib/follow-service"
+import { revalidatePath } from "next/cache";
 
 export const OnFollow = async (id: string) => {
     try{
-        console.log("this is my server ccomponent")
-        console.log(id)
+        const followedUser = await FollowUser(id);
+        revalidatePath("/");
+        if(followedUser){
+            revalidatePath(`/${followedUser.following.username}`)
+        }
+        return followedUser
+
     }catch(error){
         console.log(error)
     }

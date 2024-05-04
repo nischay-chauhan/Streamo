@@ -6,13 +6,14 @@ import { toast } from "sonner"
 
 
 interface isFollowingUserProps {
-    isFollowing: boolean
+    isFollowing: boolean;
+    userId : string
 }
 
-export const Action = ({ isFollowing }: isFollowingUserProps) => {
+export const Action = ({ isFollowing , userId }: isFollowingUserProps) => {
     const [isPending, startTranstion] = useTransition()
     const handleClick = () => {
-        startTranstion(() => { OnFollow("123").then(() => toast.success("Followed Successfully")).catch(() => toast.error("Error following")) })
+        startTranstion(() => { OnFollow(userId).then((data) => toast.success(`You are follwing ${data?.following.username}`  )).catch(() => toast.error("Error following")) })
     }
     return (
         <Button disabled={isPending || isFollowing} onClick={handleClick} variant={'primary'}>

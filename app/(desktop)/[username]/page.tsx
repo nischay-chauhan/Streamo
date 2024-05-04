@@ -23,7 +23,7 @@ const UserPage = async({params} :  UserPAgeProps) => {
             <p>User Page {user.externalUserId}</p>
             <p>User Page {user.id}</p>
             <p>is Following : {isFollowing.toString()}</p>
-            <Action isFollowing={isFollowing}/>
+            <Action userId={user.id} isFollowing={isFollowing}/>
         </div>
     )
 }
