@@ -79,7 +79,11 @@ export const UnfollowUser = async(id : string) => {
             followerId_followingId : {
                 followerId : self.id,
                 followingId : otherUser.id
-            }
+            },
+            
+        },
+        include : {
+            following : true,
         }
     })
     
