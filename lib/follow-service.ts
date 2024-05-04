@@ -28,3 +28,28 @@ export const isFollowingUser = async(id : string) => {
         return false;
     }
 }
+
+export const FollowUser = async(id : string) => {
+    const self = await getLiveUser();
+    const otherUser = await db.user.findUnique({
+        where : {id},
+    })
+    if(!otherUser){
+        throw new Error("User not Found")
+    }
+    if(otherUser.id === self.id){
+        throw new Error("Cannot follow yourself")
+    }
+    const follow = await db.follow.create({
+        data : {
+            followerId : self.id,
+             followingId : otherUser.id
+        },
+        include : {
+            following : true,
+            follower : true,
+        },
+    })
+    return follow
+
+}
