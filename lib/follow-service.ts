@@ -1,5 +1,6 @@
 import { db } from "./db";
 import { getLiveUser } from "./authService";
+import { isBlockedByUser } from "./block-Service";
 
 export const getAllFollowedUsers = async() => {
     try{
@@ -51,11 +52,16 @@ export const FollowUser = async(id : string) => {
     const otherUser = await db.user.findUnique({
         where : {id},
     })
+    
     if(!otherUser){
         throw new Error("User not Found")
     }
     if(otherUser.id === self.id){
         throw new Error("Cannot follow yourself")
+    }
+    const isBlocked  = await isBlockedByUser(otherUser.id);
+    if(isBlocked){
+        throw new Error("You are blocked by this user")
     }
     const follow = await db.follow.create({
         data : {
