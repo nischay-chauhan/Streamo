@@ -35,8 +35,8 @@ export const Recommended = ({data} : RecommendedProps) => {
 }
 
 export const RecommendedSkeleton = () => {
-    return(
-        <ul className="space-y-2">
+    return (
+        <ul className="px-2 pt-2 lg:pt-0">
             {[...Array(3)].map((_ , i) => (
                 <UserItemSkeleton key={i}/>
             ))}
