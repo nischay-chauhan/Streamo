@@ -20,7 +20,7 @@ export const Actions = async() => {
                     asChild
                     >
                         <Link
-                        href={`/user/${user.username}`}>
+                        href={`/u/${user.username}`}>
                         <Clapperboard />
                         <span className="hidden lg:block">
                             DashBoard
