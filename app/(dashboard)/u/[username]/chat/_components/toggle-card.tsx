@@ -54,11 +54,12 @@ export const ToggleCardSkeleton = ()  =>  {
         <div className="rounded-xl bg-muted p-6">
             <div className="flex items-center justify-between">
                 <p className="font-semibold shrink-0">
-                    Chat
+                    
                 </p>
                 <div className="space-y-2">
                     <Skeleton className="h-5 w-24" />
                 </div>
+                
             </div>
         </div>
     )

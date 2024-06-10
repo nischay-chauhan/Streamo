@@ -4,7 +4,9 @@ const chatLoading = () => {
     return(
         <>
         <ToggleCardSkeleton />
-        
+        <ToggleCardSkeleton />
+        <ToggleCardSkeleton />
+
         </>
     )
 }
