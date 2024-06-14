@@ -36,6 +36,8 @@ export const resetIngress = async(hostIdentity : string) => {
 export const createIngress  = async (ingressType : IngressInput) => {
     const self = await getLiveUser()
 
+    await resetIngress(self.id);
+
     const options : CreateIngressOptions = {
         name : self.username,
         roomName : self.id,
