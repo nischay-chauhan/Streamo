@@ -1,13 +1,14 @@
 'use client'
 
 import { useSidebar } from "@/store/use-sidebar"
-import { Follow, User } from "@prisma/client"
+import { Follow, Stream, User } from "@prisma/client"
 import { UserItem, UserItemSkeleton } from "./UserItem"
 
 interface FollowingProps{
     data : (Follow & {
-        following : User
-    
+        following : User & {
+            stream : Stream | null;
+        }
     })[]
 }
 export const Following = ({data}:FollowingProps) => {
@@ -33,6 +34,7 @@ export const Following = ({data}:FollowingProps) => {
                     key = {user.id}
                     username={user.following.username}
                     imageUrl = {user.following.imageUrl}
+                    isLive = {user.following.stream?.isLive}
                     />
                 ))}
             </ul>
