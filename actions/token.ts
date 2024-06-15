@@ -1,4 +1,4 @@
-'use server'
+"use server"
 import {v4} from 'uuid'
 import { AccessToken } from 'livekit-server-sdk'
 import { getLiveUser } from '@/lib/authService'
@@ -37,6 +37,7 @@ export const createViewerToken = async(hostIdentity : string) => {
             name : self.username,
         }
     );
+    
 
     token.addGrant({
         room : host.id,
