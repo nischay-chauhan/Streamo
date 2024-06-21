@@ -1,6 +1,7 @@
 "use client"
 import { Skeleton } from "../ui/skeleton"
 import { ChatTogglel } from "./chat-toggle"
+import { VariantToggle } from "./variant-toggle"
 export const ChatHeader = () => {
     return(
         <div className="relative p-3 border-b">
@@ -10,7 +11,9 @@ export const ChatHeader = () => {
             <p className="font-semibold  text-primary text-center">
             Stream Chat
             </p>
-
+            <div className="absolute right-2 top-2 ">
+            <VariantToggle />
+            </div>
         </div>
     )
 }
