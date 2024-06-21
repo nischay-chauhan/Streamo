@@ -56,8 +56,8 @@ export const ToggleCardSkeleton = ()  =>  {
                 <p className="font-semibold shrink-0">
                     
                 </p>
-                <div className="space-y-2">
-                    <Skeleton className="h-5 w-24" />
+                <div className="space-y-4">
+                    <Skeleton className="h-10 w-24" />
                 </div>
                 
             </div>
