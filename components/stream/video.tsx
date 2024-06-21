@@ -16,7 +16,6 @@ export const Video = ({hostName , hostIdentity}:VideoProps) => {
         Track.Source.Camera,
         Track.Source.Microphone
     ]).filter((track) => track.participant.identity === hostIdentity);
-
     let content;
     if(!participant && connectionState === ConnectionState.Connected){
         content = <OfflineVideo username={hostName} />

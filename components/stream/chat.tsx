@@ -1,11 +1,12 @@
 "use client"
 import { ConnectionState } from "livekit-client"
 import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar"
-import { useChat, useConnectionState, useRemoteParticipant } from "@livekit/components-react"
+import { useChat, useConnectionState, useParticipants, useRemoteParticipant } from "@livekit/components-react"
 import { useMediaQuery } from "usehooks-ts"
 import { useEffect, useMemo, useState } from "react"
 import { ChatHeader } from "./chatHeader"
 import { ChatForm } from "./chat-form"
+import { ChatList } from "./chat-list"
 
 interface ChatPRops{
     hostName : string
@@ -21,16 +22,12 @@ export const Chat = ({hostName , viewerName , hostIdentity , isFollowing , isCha
     const matches = useMediaQuery("(max-width: 1024px)")
     const {variant , onExpand} = useChatSidebar((state) => state)
     const connectionState = useConnectionState();
-    console.log(hostIdentity)
     const participant = useRemoteParticipant(hostIdentity);
-    const isOnline = participant && connectionState === ConnectionState.Connected;
-
     
-
+    const isOnline = participant && connectionState === ConnectionState.Connected;
     const isHidden = !isChatEnabled || !isOnline;
     const {chatMessages: messages , send} = useChat();
     const [value , setValue] = useState("")
-    console.log(isChatEnabled , isOnline , isHidden);
 
     useEffect(() => {
         if(matches){
@@ -57,6 +54,11 @@ export const Chat = ({hostName , viewerName , hostIdentity , isFollowing , isCha
             <ChatHeader />
             {variant === ChatVariant.chat && (
                 <>
+                <ChatList 
+                messages = {reversedMessages}
+                isHidden = {isHidden}
+
+                />
                 <ChatForm
                 onSubmit = {onSubmit}
                 value = {value}

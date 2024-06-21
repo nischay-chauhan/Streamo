@@ -22,8 +22,9 @@ export const ChatForm = ({onSubmit , value , onChange , isHidden , isFollowersOn
     const [isDelayBlocked , setIsDelayBlocked] = useState(false);
 
     const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
+    
 
-    const isDisabled = isHidden || isDelayBlocked || isFollowersOnlyAndNotFollowing;
+    const isDisabled = isHidden ||  isDelayBlocked || isFollowersOnlyAndNotFollowing;
 
     const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +48,7 @@ export const ChatForm = ({onSubmit , value , onChange , isHidden , isFollowersOn
     }
 
     return(
-       <form className="flex flex-col items-center gap-y-4 p-3" onSubmit={handleSubmit}>
+       isHidden ? null :<form className="flex flex-col items-center gap-y-4 p-3" onSubmit={handleSubmit}>
       <div className="w-full">
         <ChatInfo isDelayed = {isDelayed} isFollowersOnly = {isFollowersOnly} />
       <Input 
@@ -55,7 +56,7 @@ export const ChatForm = ({onSubmit , value , onChange , isHidden , isFollowersOn
         value={value}
         disabled = {isDisabled}
         placeholder="Type a message"
-        className={cn("border-white/10" , isFollowersOnly && "rounded-t-none border-t-0")}
+        className={cn("border-white/10 " , isFollowersOnly && "rounded-t-none border-t-0")}
         />
       </div>
       <div className="ml-auto">
