@@ -14,7 +14,7 @@ interface ChatSidebarProps{
     onChnageVariant : (variant : ChatVariant) => void;
 };
 
-export const useCreatorSidebar = create<ChatSidebarProps>((set) => ({
+export const useChatSidebar = create<ChatSidebarProps>((set) => ({
     collapsed : false,
     variant : ChatVariant.chat,
     onExpand : ()=> set(() => ({collapsed : false})),
