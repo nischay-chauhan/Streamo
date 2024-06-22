@@ -33,6 +33,10 @@ export const LiveVideo = ({participants}: LiveVideoProps) => {
     };
 
     useEffect(() => {
+        if(videoRef?.current){
+            videoRef.current.muted = true;
+            videoRef.current.volume = 0;
+        }
         onVolumeChange(0);
     } , []);
 

@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react"
 import { ChatHeader } from "./chatHeader"
 import { ChatForm } from "./chat-form"
 import { ChatList } from "./chat-list"
+import { ChatCommunity } from "./chat-community"
 
 interface ChatPRops{
     hostName : string
@@ -72,7 +73,11 @@ export const Chat = ({hostName , viewerName , hostIdentity , isFollowing , isCha
             )}
             {variant === ChatVariant.COMMUNITY && (
                 <>
-                <p>Community mode </p>
+                <ChatCommunity
+                viewerName = {viewerName}
+                hostName = {hostName}
+                isHidden = {isHidden}
+                />
                 </>
             )}
         </div>

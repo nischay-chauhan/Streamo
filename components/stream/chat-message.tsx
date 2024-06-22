@@ -18,7 +18,7 @@ export const ChatMessage = ({ data }: ChatMessageProps) => {
             <p className="text-sm font-semibold whitespace-nowrap">
             <span className="truncate" style={{color : color}}>
                 {data.from?.name}
-            </span>
+            </span> 
             </p>
             <p className="test-sm break-all">
                 {data.message}
