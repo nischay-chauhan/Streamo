@@ -4,9 +4,9 @@ import { ChatVariant, useChatSidebar } from "@/store/use-chat-sidebar"
 import { useChat, useConnectionState, useParticipants, useRemoteParticipant } from "@livekit/components-react"
 import { useMediaQuery } from "usehooks-ts"
 import { useEffect, useMemo, useState } from "react"
-import { ChatHeader } from "./chatHeader"
-import { ChatForm } from "./chat-form"
-import { ChatList } from "./chat-list"
+import { ChatHeader , ChatHEaderSkeleton} from "./chatHeader"
+import { ChatForm, ChatFormSkeleton } from "./chat-form"
+import { ChatList, ChatListSkeleton } from "./chat-list"
 import { ChatCommunity } from "./chat-community"
 
 interface ChatPRops{
@@ -80,6 +80,16 @@ export const Chat = ({hostName , viewerName , hostIdentity , isFollowing , isCha
                 />
                 </>
             )}
+        </div>
+    )
+}
+
+export const ChatSkeleton = () => {
+    return(
+        <div className="flex flex-col border-l border-2 border-b pt-0 h-[calc(100vh-80px)]">
+            <ChatHEaderSkeleton/>
+            <ChatListSkeleton />
+            <ChatFormSkeleton />
         </div>
     )
 }
