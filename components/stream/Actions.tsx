@@ -54,6 +54,6 @@ export const Actions = ({isFollowing , hostIdentity , isHost}: ActionInterface) 
 
 export const ActionSkeleton = () => {
     return(
-        <Skeleton className="h-10 w-10 lg:w-24" />
+        <Skeleton className="h-10 w-10 lg:w-32" />
     )
 }
