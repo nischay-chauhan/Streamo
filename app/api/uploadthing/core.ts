@@ -13,18 +13,18 @@ export const ourFileRouter = {
     maxFileCount : 1
     }
 }).middleware(async ({}) => {
-    const self = getLiveUser();
+    const self = await  getLiveUser();
     return {user : self}
-}).onUploadComplete(async ({metadata , file}) => {
+}).onUploadComplete(async ({metadata, file}) => {
     await db.stream.update({
-        where : {
-            userId : (await metadata.user).id,
+        where: {
+            userId: metadata.user.id,
         },
-        data : {
-            thumbnailUrl : file.url,
+        data: {
+            thumbnailUrl: file.url,
         }
     })
-    return {fileUrl : file.url}
+    return {fileUrl: file.url}
 })
   
 } satisfies FileRouter;

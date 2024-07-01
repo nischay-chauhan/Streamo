@@ -60,6 +60,7 @@ export const InfoCard = ({name , thumbnailUrl , hostIdentity , viewerIdentity} :
                         fill
                         src={thumbnailUrl}
                         alt="thumbnail"
+                        className="object-cover"
                         /> 
                     </div>
                 )}
