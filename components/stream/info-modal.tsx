@@ -10,12 +10,14 @@ import {
     DialogClose
 
 } from "@/components/ui/dialog"
+import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { useState , useRef , useTransition , ElementRef } from "react"
 import { updateStream } from "@/actions/stream"
 import { toast } from "sonner"
+import { UploadDropzone } from "@/lib/uploadthing"
 interface InfoModalProps{
     intialName : string
     intialThumbnail : string | null
@@ -25,6 +27,8 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
     const closeRef = useRef<ElementRef<"button">>(null)
     const [name , setName] = useState(intialName)
     const [isPending , startTransition] = useTransition()
+    const [thumbnailUrl , setThumbnailUrl] = useState(intialThumbnail)
+    const router = useRouter()
     const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value)
     }
@@ -65,6 +69,30 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
                         disabled={isPending}
                         onChange={onChange}
                         />
+
+                    </div>
+                    <div className="space-y-2 ">
+                        <Label>
+                            Thumbnail
+                        </Label>
+                        <div className="roundec-xl border outline-dashed outline-muted">
+                            <UploadDropzone
+                            endpoint="thumbnailUploader"
+                            appearance={{
+                                label : {
+                                    color : "#FFFFFF"
+                                },
+                                allowedContent : {
+                                    color : "#FFFFFF"
+                                }
+                            }}
+                            onClientUploadComplete={(res) => {
+                                setThumbnailUrl(res?.[0]?.url)
+                                router.refresh()
+                            }}
+                            
+                            />
+                        </div>
 
                     </div>
                     <div className="flex justify-between ">
