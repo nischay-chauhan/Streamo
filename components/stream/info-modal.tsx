@@ -13,8 +13,7 @@ import {
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
-import { useState } from "react"
-import { useTransition } from "react"
+import { useState , useRef , useTransition , ElementRef } from "react"
 import { updateStream } from "@/actions/stream"
 import { toast } from "sonner"
 interface InfoModalProps{
@@ -23,6 +22,7 @@ interface InfoModalProps{
 }
 
 export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
+    const closeRef = useRef<ElementRef<"button">>(null)
     const [name , setName] = useState(intialName)
     const [isPending , startTransition] = useTransition()
     const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +35,7 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
            updateStream ({name : name})
            .then(() => {
                toast.success("Stream Updated")
+               closeRef.current?.click()
            }).catch(() => {
                toast.error("Something went wrong")
            })
@@ -71,7 +72,7 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
                             <Button type="button" variant="ghost" size={'sm'}>Cancel
                             </Button>
                         </DialogClose>
-                        <DialogClose asChild>
+                        <DialogClose ref={closeRef} asChild>
                             <Button type="submit" 
                             disabled={false}
                             variant="primary" size={'sm'} >Save
