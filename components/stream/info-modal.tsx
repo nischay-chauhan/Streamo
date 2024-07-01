@@ -18,6 +18,9 @@ import { useState , useRef , useTransition , ElementRef } from "react"
 import { updateStream } from "@/actions/stream"
 import { toast } from "sonner"
 import { UploadDropzone } from "@/lib/uploadthing"
+import { Hint } from "../hint"
+import { Trash } from "lucide-react"
+import Image from "next/image"
 interface InfoModalProps{
     intialName : string
     intialThumbnail : string | null
@@ -43,6 +46,18 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
            }).catch(() => {
                toast.error("Something went wrong")
            })
+        })
+    }
+
+    const onRemoveThumbnail = () => {
+        startTransition(() => {
+            updateStream({thumbnailUrl : null}).then(() => {
+                toast.success("Thumbnail removed")
+                setThumbnailUrl("")
+                closeRef.current?.click()
+            }).catch(() => {
+                toast.error("Something went wrong")
+            })
         })
     }
 
@@ -75,6 +90,29 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
                         <Label>
                             Thumbnail
                         </Label>
+                        {thumbnailUrl ? (
+                            <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10">
+                                <div className="absolute top-2 right-2 z-[10]">
+                                <Hint
+                                label="Remove Thumbnail"
+                                asChild
+                                >
+                                    <Button type="button" disabled={isPending} 
+                                    onClick={onRemoveThumbnail}
+                                    className="h-auto w-auto p-1"
+                                    >
+                                        <Trash className="h-4 w-4" />
+                                    </Button>
+                                </Hint>
+                                </div>
+                                <Image
+                                src={thumbnailUrl}
+                                fill
+                                alt="thumbnail"
+                                className="object-cover"
+                                />
+                            </div>
+                        ) : (
                         <div className="roundec-xl border outline-dashed outline-muted">
                             <UploadDropzone
                             endpoint="thumbnailUploader"
@@ -89,11 +127,12 @@ export const InfoModal = ({intialName ,intialThumbnail} : InfoModalProps) => {
                             onClientUploadComplete={(res) => {
                                 setThumbnailUrl(res?.[0]?.url)
                                 router.refresh()
+                                closeRef.current?.click()
                             }}
                             
                             />
                         </div>
-
+                        )}
                     </div>
                     <div className="flex justify-between ">
                         <DialogClose asChild>
