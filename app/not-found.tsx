@@ -7,7 +7,7 @@ const NotFoundPgae = () => {
         <div className="h-full flex flex-col space-y-4 items-center justify-center text-muted-foreground">
             <h1 className="text-4xl">404</h1>
             <p>
-                We could&apos;t find the User you were looking for.
+                We could&apos;t find the Page you were looking for.
             </p>
             <Button variant={'secondary'} asChild>
                 <Link href="/">
