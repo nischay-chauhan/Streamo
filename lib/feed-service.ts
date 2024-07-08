@@ -51,4 +51,5 @@ export const getStreams = async() => {
             ]
         })
     }
+    return streams
 }
