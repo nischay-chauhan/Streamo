@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { UserAvatar } from "./user-avatar"
+import { Skeleton } from "./ui/skeleton"
 
 interface ThumbNailProps {
     src : string | null
@@ -36,6 +37,16 @@ export const ThumbNail = ({src, fallback, username, isLive} : ThumbNailProps) =>
             <div className="rounded-md h-full absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
             </div>
             {content}
+        </div>
+    )
+}
+
+
+export const ThumbnailSkeleton = () => {
+    return(
+        <div className="group aspect-video relative rounded-xl cursor-pointer">
+            <Skeleton className="h0full w-full" />
+
         </div>
     )
 }
