@@ -45,8 +45,7 @@ export const ThumbNail = ({src, fallback, username, isLive} : ThumbNailProps) =>
 export const ThumbnailSkeleton = () => {
     return(
         <div className="group aspect-video relative rounded-xl cursor-pointer">
-            <Skeleton className="h0full w-full" />
-
+            <Skeleton className="h-full w-full" />
         </div>
     )
 }

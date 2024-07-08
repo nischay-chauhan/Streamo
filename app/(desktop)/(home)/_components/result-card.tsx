@@ -57,7 +57,6 @@ export const ResultCardSkeleton = () => {
             <div className="flex flex-col gap-y-1">
                 <Skeleton className="h-6 w-32" />
                 <Skeleton className="h-4 w-24" />
-                
             </div>
 
         </div>

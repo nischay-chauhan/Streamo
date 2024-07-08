@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { getStreams } from "@/lib/feed-service"
-import { ResultCard } from "./result-card";
+import { ResultCard, ResultCardSkeleton } from "./result-card";
 
 export const Results = async() => {
     const data = await getStreams();
@@ -30,14 +30,13 @@ export const Results = async() => {
 
 export const ResultSkeleton = () => {
     return(
-        <div className="flex flex-col items-center gap-y-4 p-3">
-            <div className="flex flex-xol items-center gap-y-4 p-3">
-                <Skeleton className="h-10 w-full" />
-            </div>
-            <div className="flex items-center gap-x-2 ml-auto">
-                <Skeleton className="h-7 w-7" />
-                <Skeleton className="h-7 w-12" />
-            </div>
+        <div className="">
+           <Skeleton className="h-8 w-[200px] mb-4" />
+           <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(4)].map((_,i) => (
+                <ResultCardSkeleton key={i}/>
+            ))}
+           </div>
         </div>
     )
 }
