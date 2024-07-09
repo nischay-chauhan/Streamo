@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { UserAvatar } from "./user-avatar"
 import { Skeleton } from "./ui/skeleton"
+import { LiveBadge } from "./live-badge"
 
 interface ThumbNailProps {
     src : string | null
@@ -37,6 +38,11 @@ export const ThumbNail = ({src, fallback, username, isLive} : ThumbNailProps) =>
             <div className="rounded-md h-full absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
             </div>
             {content}
+            {isLive &&  (
+                <div className="absolute top-2 left-5   transform -translate-x-1/2  transform-translate-x-1/2">
+                <LiveBadge />    
+                </div>
+            )}
         </div>
     )
 }

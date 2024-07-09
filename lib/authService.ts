@@ -33,7 +33,11 @@ export const getSelfByUsername = async(username : string) => {
         throw new Error("User not found")
     }
 
+
     if(self.username !== user.username){
+        throw new Error("Unauthorized")
+    }
+    if(user.externalUserId !== self.id){
         throw new Error("Unauthorized")
     }
 

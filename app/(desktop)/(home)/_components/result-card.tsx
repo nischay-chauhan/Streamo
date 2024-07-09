@@ -6,13 +6,18 @@ import { Stream, User } from "@prisma/client";
 import Link from "next/link";
 
 interface ResultCardsProps {
-    data : Stream & {user : User};
+    data : {
+        user : User
+        name : string
+        thumbnailUrl : string | null
+        isLive : boolean
+    }
 }
 
 export const ResultCard = ({data} : ResultCardsProps) => {
     {console.log(data.isLive)}
     return(
-       <Link href={`/u/${data.user.username}`}>
+       <Link href={`/${data.user.username}`}>
         <div className="h-full w-full space-y-4">
             <ThumbNail 
             src={data.thumbnailUrl}
@@ -21,11 +26,7 @@ export const ResultCard = ({data} : ResultCardsProps) => {
             username={data.user.username}
             />
             
-            {data.isLive && (
-                <div className="absolute top-2 left-2 transform -translate-x-1/2  transform-translate-x-1/2">
-                <LiveBadge />    
-                </div>
-            )}
+           
             <div className="flex gap-x-3">
                 <UserAvatar
                 username={data.user.username}
