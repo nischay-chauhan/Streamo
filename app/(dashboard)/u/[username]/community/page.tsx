@@ -1,5 +1,5 @@
 import { getAllBlockedUsers } from "@/lib/block-Service";
-import { columns, Payment } from "./_components/columns"
+import { columns } from "./_components/columns"
 import { DataTable } from "./_components/data-table"
 import { format } from "date-fns";
 
@@ -10,7 +10,7 @@ const CommunityPage = async() => {
     const blockedUsers = await getAllBlockedUsers();
     const formattedData = blockedUsers.map((user) => ({
       ...user,
-      userId : user.id,
+      userId : user.blocked.id,
       imageUrl : user.blocked.imageUrl,
       username : user.blocked.username,
       createdAt : format(new Date(user.blocked.createdAt) , "dd/MM/yyyy"),

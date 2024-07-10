@@ -61,6 +61,7 @@ export const unblockUser = async(id : string) => {
     const otherUser = await db.user.findUnique({
         where : {id},
     })
+    console.log(id)
     if(!otherUser){
         throw new Error("User not Found")
     }
