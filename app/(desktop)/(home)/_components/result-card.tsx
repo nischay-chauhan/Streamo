@@ -34,7 +34,7 @@ export const ResultCard = ({data} : ResultCardsProps) => {
                 isLive={data.isLive}
                 />
                 <div className="flex flex-col text-sm overflow-hidden">
-                <p className="truncate font-semibold hoverr:text-blue-500">
+                <p className="truncate font-semibold hover:text-blue-500">
                     {data.name}
                 </p>
                 <p className="text-muted-foreground">

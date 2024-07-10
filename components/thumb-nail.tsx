@@ -29,10 +29,11 @@ export const ThumbNail = ({src, fallback, username, isLive} : ThumbNailProps) =>
             src={src}
             alt="thumbnail"
             fill
-            className="object-cover transition-transform group-hover:translate-x-2 group-hover:translate-y-1 rounded-md"
+            className="object-cover transition-transform group-hover:translate-x-2 group-hover:translate-y-2 rounded-md"
             />
         )
     }
+    // console.log(isLive)
     return (
         <div className="group aspect-video relative rounded-md cursor-pointer">
             <div className="rounded-md h-full absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
