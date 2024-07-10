@@ -100,12 +100,11 @@ export const getAllBlockedUsers = async() => {
     const self = await getLiveUser();
     const blockedUsers = await db.block.findMany({
         where : {
-            blockedId : self.id
+            blockerId : self.id
         },
         include : {
             blocked : true,
         }
     });
-    
     return blockedUsers
 }
