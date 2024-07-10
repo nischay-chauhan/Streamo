@@ -6,7 +6,14 @@ import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 
 interface ResultCardsProps{
-    data : Stream & {user : User}
+    data : {
+        id : string
+        name : string
+        thumbnailUrl : string | null
+        isLive : boolean
+        user : User
+        updatedAt : Date
+    }
 }
 
 export const ResultCard = ({data} : ResultCardsProps) => {
@@ -30,7 +37,7 @@ export const ResultCard = ({data} : ResultCardsProps) => {
                     {data.name}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                    {formatDistanceToNow(new Date(data.createdAt) , {
+                    {formatDistanceToNow(new Date(data.updatedAt) , {
                         addSuffix: true
                     })}
                 </p>
