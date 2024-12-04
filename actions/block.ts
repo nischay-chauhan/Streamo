@@ -23,6 +23,7 @@ export const  onBlock = async (id: string) => {
             await roomService.removeParticipant(self.id , id)
         }catch(error){
             // iser is kicked out
+            
         }
       
         revalidatePath(`/u/${self.username}/community`);
