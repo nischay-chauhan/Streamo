@@ -25,28 +25,29 @@ const roomService = new RoomServiceClient(
 const ingressClient = new IngressClient(process.env.LIVEKIT_API_URL!);
 
 // Helper function for retrying requests with exponential backoff
-const retryWithBackoff = async (fn, maxRetries = 5) => {
+const retryWithBackoff = async <T>(fn: () => Promise<T>, maxRetries = 5): Promise<T> => {
   let retryCount = 0;
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
   while (retryCount < maxRetries) {
     try {
-      return await fn();
-    } catch (error) {
+      return await fn(); // Try the function
+    } catch (error: any) {
       if (error?.code === 429 && retryCount < maxRetries) {
         const backoffTime = Math.pow(2, retryCount) * 100; // Exponential backoff
         console.warn(`Rate limit hit. Retrying in ${backoffTime}ms...`);
         await delay(backoffTime);
         retryCount++;
       } else {
-        throw error;
+        throw error; // Re-throw other errors
       }
     }
   }
   throw new Error("Max retries reached");
 };
 
-export const resetIngress = async (hostIdentity) => {
+
+export const resetIngress = async (hostIdentity : string) => {
   console.log("in this function");
 
   const ingresses = await retryWithBackoff(() =>
@@ -72,39 +73,42 @@ export const resetIngress = async (hostIdentity) => {
   }
 };
 
-export const createIngress = async (ingressType) => {
+export const createIngress = async (ingressType : IngressInput) => {
   const self = await getLiveUser();
   console.log(self);
 
   await resetIngress(self.id);
   console.log("After reset Ingress");
 
-  const options = {
-    name: self.username,
-    roomName: self.id,
-    participantName: self.username,
-    participantIdentity: self.id
-  };
-
-  if (ingressType === IngressInput.WHIP_INPUT) {
+  const options : CreateIngressOptions = {
+    name : self.username,
+    roomName : self.id,
+    participantName : self.username,
+    participantIdentity : self.id
+    
+};
+console.log(options)
+console.log(ingressType)
+if(ingressType === IngressInput.WHIP_INPUT){
     options.enableTranscoding = true;
-  } else {
+}else{
     options.video = new IngressVideoOptions({
-      source: TrackSource.CAMERA,
-      encodingOptions: {
-        case: "preset",
-        value: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS
-      }
+        source : TrackSource.CAMERA,
+        encodingOptions : {
+            case : 'preset',
+            value : IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+        },
     });
 
-    options.audio = new IngressAudioOptions({
-      source: TrackSource.MICROPHONE,
-      encodingOptions: {
-        case: "preset",
-        value: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
-      }
-    });
-  }
+    options.audio =  new IngressAudioOptions({
+        source : TrackSource.MICROPHONE,
+        encodingOptions : {
+            case : 'preset',
+            value : IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
+        }
+    })
+
+}    
 
   const ingress = await retryWithBackoff(() =>
     ingressClient.createIngress(ingressType, options)
