@@ -31,7 +31,7 @@ const retryWithBackoff = async <T>(fn: () => Promise<T>, maxRetries = 5): Promis
 
   while (retryCount < maxRetries) {
     try {
-      return await fn(); // Try the function
+      return await fn(); 
     } catch (error: any) {
       if (error?.code === 429 && retryCount < maxRetries) {
         const backoffTime = Math.pow(2, retryCount) * 100; // Exponential backoff
@@ -80,35 +80,35 @@ export const createIngress = async (ingressType : IngressInput) => {
   await resetIngress(self.id);
   console.log("After reset Ingress");
 
-  const options : CreateIngressOptions = {
-    name : self.username,
-    roomName : self.id,
-    participantName : self.username,
-    participantIdentity : self.id
-    
-};
-console.log(options)
-console.log(ingressType)
-if(ingressType === IngressInput.WHIP_INPUT){
-    options.enableTranscoding = true;
-}else{
-    options.video = new IngressVideoOptions({
-        source : TrackSource.CAMERA,
-        encodingOptions : {
-            case : 'preset',
-            value : IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
-        },
-    });
+   const options : CreateIngressOptions = {
+        name : self.username,
+        roomName : self.id,
+        participantName : self.username,
+        participantIdentity : self.id
+        
+    };
+    console.log(options)
+    console.log(ingressType)
+    if(ingressType === IngressInput.WHIP_INPUT){
+        options.enableTranscoding = true;
+    }else{
+        options.video = new IngressVideoOptions({
+            source : TrackSource.CAMERA,
+            encodingOptions : {
+                case : 'preset',
+                value : IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+            },
+        });
 
-    options.audio =  new IngressAudioOptions({
-        source : TrackSource.MICROPHONE,
-        encodingOptions : {
-            case : 'preset',
-            value : IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
-        }
-    })
+        options.audio =  new IngressAudioOptions({
+            source : TrackSource.MICROPHONE,
+            encodingOptions : {
+                case : 'preset',
+                value : IngressAudioEncodingPreset.OPUS_STEREO_96KBPS
+            }
+        })
 
-}    
+    }    
 
   const ingress = await retryWithBackoff(() =>
     ingressClient.createIngress(ingressType, options)

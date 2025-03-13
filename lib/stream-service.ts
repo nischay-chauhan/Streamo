@@ -6,5 +6,6 @@ export const getStreamByUserId = async(userId : string) => {
             userId
         }
     })
+    console.log(stream);
     return stream
 }
